@@ -1,0 +1,39 @@
+{% extends 'auxiliar/base.html' %} {% load static %} {% block title %} Bolão | Palpites {% endblock%} {% block body %}
+
+<div class="title__rodada">
+    <h2 class="card-text">Palpites </h2>
+    <hr>
+</div>
+
+<section class="rodadas">
+    <form action="{% url 'palpites' %}" method="POST">
+        {% csrf_token %}
+        {% for jogo in jogos %}
+        <div class="rodada">
+            <div class="time_casa">
+                <img src="{{ jogo.homeTeam.crest }}" alt="{{ jogo.homeTeam.name }}">
+                <span>{{ jogo.homeTeam.shortName }}</span>
+            </div>
+            <div class="info_rodada">
+                <span class="horario_rodada">Rodada: {{ jogo.matchday }}</span>
+                <div class="resultado_jogo">
+                    <input type="number" name="resultado_casa" id="placar" value="0" />
+                    <span>X</span>
+                    <input type="number" name="resultado_visitante" value="0" id="placar" />
+                </div>
+            </div>
+            <div class="time_visitante">
+                <img src="{{ jogo.awayTeam.crest }}" alt="{{ jogo.awayTeam.name }}">
+                <span>{{ jogo.awayTeam.shortName }}</span>
+            </div>
+
+        </div>
+        {% endfor %}
+        {% if user.is_authenticated %}
+            <div class="salvar">
+                <button>Salvar Palpites</button>
+            </div>
+        {% endif %}
+    </form>
+</section>
+{% endblock %}
