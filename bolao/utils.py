@@ -1,6 +1,11 @@
 import re
 import datetime
 import pytz
+import pandas as pd
+import time
+
+from .models import *
+from .api_brasileirao import *
 
 def validar_senha(senha, confirmar_senha):
   """Valida se a senha atende aos critérios de segurança e se as senhas coincidem.
@@ -47,3 +52,44 @@ def utc_para_brasil(utc_string):
     brasilia_datetime = utc_datetime.astimezone(brasilia)
 
     return brasilia_datetime
+
+
+def criar_rodadas_campeonato():
+
+  contador = 1
+  while contador <= 38:
+    time.sleep(2)
+    data = get_api_data(contador)
+    time_casa = []
+    img_casa = []
+    time_visitante = []
+    img_visitante = []
+    rodada = []
+
+    for jogo in data["matches"]:
+      time_casa.append(jogo['homeTeam']['shortName'])
+      img_casa.append(jogo['homeTeam']['crest'])
+      time_visitante.append(jogo['awayTeam']['shortName'])
+      img_visitante.append(jogo['awayTeam']['crest'])
+      rodada.append(jogo['matchday'])
+
+    resultado_tabela = {
+      "time_casa": time_casa,
+      "img_casa": img_casa,
+      "img_visitante": img_visitante,
+      "time_visitante": time_visitante,
+      "rodada": rodada
+      }
+
+    df_tabela = pd.DataFrame(resultado_tabela)
+    for _, row in df_tabela.iterrows():
+      jogos_rodada_criado  = Rodada.objects.create(
+        time_casa=row['time_casa'],
+        imagem_casa=row['img_casa'],
+          time_visitante=row['time_visitante'],
+          imagem_fora=row['img_visitante'],
+          rodada_atual= row['rodada'],
+          )
+    print(f'Rodada {contador} criada!')
+    contador += 1  # Incrementa o contador em 1 a cada iteração
+    time.sleep(11)

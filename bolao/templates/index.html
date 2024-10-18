@@ -1,65 +1,85 @@
-
 {% extends 'auxiliar/base.html' %} {% load static %} {% block title %} Bolão | Ranking {% endblock%} {% block body %}
 
 
-    <section class="informacao">
-        <div class="container__info">
-            <h2 class="title">Bolão do Campeonato Brasileiro</h2>
-            <p>O apostador terá que preencher os 10 jogos de cada rodada
-                com os seus palpites.<b class="text-primary">
-                    Se o apostador acertar o time vencedor da partida ou empate, Ganha
-                    2 ponto. Se o apostador acertar o placar exato, Ganha 3
-                    pontos, totalizando 5 pontos.</b>
-                Aumente suas chances de vencer. Não perca tempo e
-                participe agora!</p>
-            <div class="premiacoes">
-                <h4>PREMIAÇÕES</h4>
-                <p>
-                    Ao fim de cada turno do campeonato, os primeiros colocados serão os campeões!
-                    As premiações será de acordo com a quantidades de apostadores, quanto mais apostadores, mais
-                    premiações serão pagas!
+<section class="informacao">
+    <div class="container__info">
+        <h2 class="title">Bolão do Campeonato Brasileiro</h2>
+        <p>O apostador terá que preencher os 10 jogos de cada rodada
+            com os seus palpites.<b class="text-primary">
+                Se o apostador acertar o time vencedor da partida ou empate, Ganha
+                2 ponto. Se o apostador acertar o placar exato, Ganha 3
+                pontos, totalizando 5 pontos.</b>
+            Aumente suas chances de vencer. Não perca tempo e
+            participe agora!</p>
+        <div class="premiacoes">
+            <h4>PREMIAÇÕES</h4>
+            <p>
+                Ao fim de cada turno do campeonato, os primeiros colocados serão os campeões!
+                As premiações será de acordo com a quantidades de apostadores, quanto mais apostadores, mais
+                premiações serão pagas!
 
-                    - As premiações serão pagas ao final do turno via PIX.
-                </p>
-            </div>
-            <div class="inscricao">
-                <button>Clique aqui para participar</button>
-            </div>
+                - As premiações serão pagas ao final do turno via PIX.
+            </p>
         </div>
-    </section>
-
-    <section class="container">
-        <h2>Classificação</h2>
-        <div class="tabela">
-            <table>
-                <thead>
-                    <tr>
-                        <th><i class="fa-solid fa-ranking-star"></i></th>
-                        <th></th>
-                        <th>Pontos</th>
-                        <th>Placar Exato</th>
-                        <th>Vitórias</th>
-                        <th>Empates</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {% for usuario in usuarios %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td class="usuario">
-                            <img src="{{ usuario.usuario.imagem.url }}" alt="{{ usuario.usuario.nome }}" class="escudo">
-                            {{ usuario.usuario.nome}}
-                        </td>
-                        <td>{{ usuario.pontos }}</td>
-                        <td>{{ usuario.placar_exato }}</td>
-                        <td>{{ usuario.vitorias }}</td>
-                        <td>{{ usuario.empates }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="inscricao">
+            <button onclick="return sendToWhatSapp('{{request.user}}')">Clique aqui para participar</button>
         </div>
-    </section>
+    </div>
+</section>
 
+<section class="container">
+    <h2>Classificação</h2>
+    <div class="tabela">
+        <table>
+            <thead>
+                <tr>
+                    <th><i class="fa-solid fa-ranking-star"></i></th>
+                    <th></th>
+                    <th>Pontos</th>
+                    <th>Placar Exato</th>
+                    <th>Vitórias</th>
+                    <th>Empates</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="usuario">
+                        <img src="{{ usuario.usuario.imagem.url }}" alt="{{ usuario.usuario.nome }}" class="escudo">
+                        {{ usuario.usuario.nome}}
+                    </td>
+                    <td>{{ usuario.pontos }}</td>
+                    <td>{{ usuario.placar_exato }}</td>
+                    <td>{{ usuario.vitorias }}</td>
+                    <td>{{ usuario.empates }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<script>
+    const sendToWhatSapp = (nome) => {
+
+        const numeroDestino = "+5584988638467";
+        const mensagem =
+            "Olá, gostaria de participar do Bolão do Brasileirão!";
+
+        const url =
+            "https://wa.me/" +
+            numeroDestino +
+            "?text=" +
+            mensagem +
+            "%0a%0a" +
+            "Nome: " +
+            nome ;
+
+        window.open(url, "_blank").focus();
+
+    };
+</script>
 {% endblock %}

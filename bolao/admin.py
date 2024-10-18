@@ -21,6 +21,15 @@ class PalpiteAdmin(admin.ModelAdmin):
     search_fields = ("usuario", "rodada_atual")
 
 
+class RodadaAdmin(admin.ModelAdmin):
+    model = Palpite
+    list_display = ["rodada_atual","time_casa", "placar_casa", "placar_visitante",  "time_visitante", "vencedor"]
+    list_filter = ["rodada_atual"]
+    list_per_page = 10
+    search_fields = ("rodada_atual",)
+
+
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(Classificacao, ClassificacaoAdmin)
 admin.site.register(Palpite, PalpiteAdmin)
+admin.site.register(Rodada, RodadaAdmin)

@@ -39,3 +39,17 @@ class Palpite(models.Model):
 
     def __str__(self):
         return f"{self.time_casa} x {self.time_visitante}"
+
+
+class Rodada(models.Model):
+    rodada_atual = models.IntegerField(default=1)
+    time_casa = models.CharField(max_length=50)
+    placar_casa = models.CharField(max_length=50)
+    time_visitante = models.CharField(max_length=50)
+    placar_visitante = models.CharField(max_length=50)
+    imagem_casa = models.ImageField(upload_to='emblemas_times')
+    imagem_fora = models.ImageField(upload_to='emblemas_times')
+    vencedor = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.time_casa} x {self.time_visitante}"

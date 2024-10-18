@@ -8,14 +8,14 @@
 <section class="rodadas">
     <form action="{% url 'palpites' %}" method="POST">
         {% csrf_token %}
-        {% for jogo in jogos %}
+        {% for jogo in rodadas %}
         <div class="rodada">
             <div class="time_casa">
-                <img src="{{ jogo.homeTeam.crest }}" alt="{{ jogo.homeTeam.name }}">
-                <span>{{ jogo.homeTeam.shortName }}</span>
+                <img src="{{ jogo.imagem_casa }}" alt="{{ jogo.time_caasa }}">
+                <span>{{ jogo.time_casa }}</span>
             </div>
             <div class="info_rodada">
-                <span class="horario_rodada">Rodada: {{ jogo.matchday }}</span>
+                <span class="horario_rodada">Rodada: {{ jogo.rodada_atual }}</span>
                 <div class="resultado_jogo">
                     <input type="number" name="resultado_casa" id="placar" value="0" />
                     <span>X</span>
@@ -23,8 +23,8 @@
                 </div>
             </div>
             <div class="time_visitante">
-                <img src="{{ jogo.awayTeam.crest }}" alt="{{ jogo.awayTeam.name }}">
-                <span>{{ jogo.awayTeam.shortName }}</span>
+                <img src="{{ jogo.imagem_fora }}" alt="{{ jogo.time_visitante }}">
+                <span>{{ jogo.time_visitante }}</span>
             </div>
 
         </div>

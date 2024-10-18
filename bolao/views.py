@@ -1,12 +1,12 @@
-
-
+import threading
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
+import pandas as pd
 
 from .models import *
-from .utils import validar_senha, utc_para_brasil
+from .utils import validar_senha, criar_rodadas_campeonato
 from .api_brasileirao import get_api_data
 
 
@@ -19,8 +19,11 @@ def homepage(request):
 
 
 def palpites(request):
-    data = get_api_data(31)
-    context = {'jogos': data["matches"]}
+    rodadas = Rodada.objects.filter(rodada_atual=31)
+
+    # thread = threading.Thread(target=criar_rodadas_campeonato)
+    # thread.start()
+    context = {"rodadas":rodadas}
     return render(request,'palpites.html', context)
 
 
