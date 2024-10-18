@@ -13,8 +13,6 @@ class Usuario(models.Model):
     def __str__(self):
         return f"Nome: {self.usuario}"
 
-
-
 class Classificacao(models.Model):
     usuario = models.OneToOneField(Usuario, null=True, blank=True, on_delete=models.CASCADE)
     pontos = models.IntegerField(default=0)
@@ -27,7 +25,7 @@ class Classificacao(models.Model):
 
 
 class Palpite(models.Model):
-    usuario = models.OneToOneField(Usuario, null=True, blank=True, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     rodada_atual = models.IntegerField(default=1)
     time_casa = models.CharField(max_length=50)
     placar_casa = models.IntegerField(default=0)

@@ -19,7 +19,57 @@ def homepage(request):
 
 
 def palpites(request):
-    rodadas = Rodada.objects.filter(rodada_atual=31)
+    user = request.user
+    rodadas = Rodada.objects.filter(rodada_atual=29)
+    time_casa = []
+    time_visitante = []
+    rodada_dict = []
+    placar_casa = []
+    placar_visitante = []
+
+
+    # adicionando os times casa e time visitantes dentros das lista para depois salvar no banco de dados
+    for rodada in rodadas:
+        time_casa.append(rodada.time_casa)
+        time_visitante.append(rodada.time_visitante)
+
+    if request.method == "POST":
+        dados = request.POST
+        resultados_form = dict(dados)
+
+
+        if resultados_form["resultado_casa"] and resultados_form["resultado_visitante"]:
+            for resultado_visitante in resultados_form["resultado_visitante"]:
+                placar_visitante.append(resultado_visitante)
+
+            for resultado_casa in resultados_form["resultado_casa"]:
+                placar_casa.append(resultado_casa)
+
+            for rodada in resultados_form["rodada_atual"]:
+                rodada_dict.append(rodada)
+
+
+        resultado_tabela = {
+                "time_casa": time_casa,
+                "placar_casa": placar_casa,
+                "placar_visitante": placar_visitante,
+                "time_visitante": time_visitante,
+                "rodada_atual": rodada_dict
+        }
+
+        df_tabela = pd.DataFrame(resultado_tabela)
+            # Iterar sobre o DataFrame e criar instâncias do modelo Rodada1
+            #criando o banco de dados
+        for _, row in df_tabela.iterrows():
+            jogos_rodada_criado  = Palpite.objects.create(
+                time_casa=row['time_casa'],
+                placar_casa=row['placar_casa'],
+                placar_visitante=row['placar_visitante'],
+                time_visitante=row['time_visitante'],
+                usuario=user,
+                rodada_atual=row['rodada_atual'],
+                )
+
 
     # thread = threading.Thread(target=criar_rodadas_campeonato)
     # thread.start()

@@ -13,19 +13,24 @@
             <div class="time_casa">
                 <img src="{{ jogo.imagem_casa }}" alt="{{ jogo.time_caasa }}">
                 <span>{{ jogo.time_casa }}</span>
-            </div>
+                <input type="hidden" name="{{ jogo.time_casa }}" value="{{ jogo.time_casa }}" />
+            </div><!--tim_casa-->
+
             <div class="info_rodada">
                 <span class="horario_rodada">Rodada: {{ jogo.rodada_atual }}</span>
+                <input type="hidden" name="rodada_atual" value="{{ jogo.rodada_atual }}" />
                 <div class="resultado_jogo">
-                    <input type="number" name="resultado_casa" id="placar" value="0" />
+                    <input type="number" name="resultado_casa" id="placar" value="0"  required />
                     <span>X</span>
-                    <input type="number" name="resultado_visitante" value="0" id="placar" />
+                    <input type="number" name="resultado_visitante" value="0" id="placar" required />
                 </div>
-            </div>
+            </div><!--Rodada-->
+
             <div class="time_visitante">
                 <img src="{{ jogo.imagem_fora }}" alt="{{ jogo.time_visitante }}">
                 <span>{{ jogo.time_visitante }}</span>
-            </div>
+                <input type="hidden" name="{{ jogo.time_visitante }}" value="{{ jogo.time_visitante }}" />
+            </div><!--Time_visitante-->
 
         </div>
         {% endfor %}
