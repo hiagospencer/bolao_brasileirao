@@ -27,33 +27,6 @@ def validar_senha(senha, confirmar_senha):
 
 
 
-
-def utc_para_brasil(utc_string):
-    """
-    Converte uma string de data/hora UTC para o horário de Brasília.
-
-    Args:
-        utc_string: String representando a data/hora em UTC no formato ISO 8601.
-
-    Returns:
-        Objeto datetime representando a data/hora convertida para o horário de Brasília.
-    """
-
-
-   # Cria um objeto datetime a partir da string UTC
-    utc_datetime = datetime.datetime.fromisoformat(utc_string)
-
-    # Define os fusos horários
-    utc = pytz.utc
-    brasilia = pytz.timezone('America/Sao_Paulo')
-
-    # Localiza a data/hora UTC e converte para o fuso horário de Brasília
-    utc_datetime = utc.localize(utc_datetime)
-    brasilia_datetime = utc_datetime.astimezone(brasilia)
-
-    return brasilia_datetime
-
-
 def criar_rodadas_campeonato():
 
   contador = 1
@@ -93,3 +66,18 @@ def criar_rodadas_campeonato():
     print(f'Rodada {contador} criada!')
     contador += 1  # Incrementa o contador em 1 a cada iteração
     time.sleep(11)
+
+
+def calcular_pontuacao(user):
+  '''
+    Args:
+      Receber como argumento o usuario para fazer o filtro da tabela Palpite "score" "winner"
+  '''
+  usuario = user
+  dados = get_api_data(29)
+  rodadas = Palpite.objects.filter(finalizado=False, usuario=usuario)
+
+
+
+def salvar_rodada_original():
+  pass

@@ -6,13 +6,15 @@ from django.shortcuts import render, redirect
 import pandas as pd
 
 from .models import *
-from .utils import validar_senha, criar_rodadas_campeonato
+from .utils import *
 from .api_brasileirao import get_api_data
 
 
 def homepage(request):
+    user = request.user
     usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
+    calcular_pontuacao(user)
     context = {'usuarios':usuarios}
     return render(request, 'index.html',context)
 

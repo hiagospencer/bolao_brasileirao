@@ -34,6 +34,16 @@ class Palpite(models.Model):
     vencedor = models.CharField(max_length=50)
     finalizado = models.BooleanField(default=False)
 
+    def save(self, *args, **kwargs):
+        if self.placar_casa > self.placar_visitante:
+            self.vencedor = 'HOME_TEAM'
+        elif self.placar_casa < self.placar_visitante:
+            self.vencedor = 'AWAY_TEAM'
+        else:
+            self.vencedor = 'DRAW'
+
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.time_casa} x {self.time_visitante}"
