@@ -14,7 +14,8 @@ def homepage(request):
     user = request.user
     usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
-    calcular_pontuacao(user)
+
+    # salvar_rodada_original()
     context = {'usuarios':usuarios}
     return render(request, 'index.html',context)
 
@@ -28,7 +29,7 @@ def palpites(request):
     rodada_dict = []
     placar_casa = []
     placar_visitante = []
-
+    calcular_pontuacao(user)
 
     # adicionando os times casa e time visitantes dentros das lista para depois salvar no banco de dados
     for rodada in rodadas:

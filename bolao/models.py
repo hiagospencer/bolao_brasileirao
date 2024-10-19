@@ -36,17 +36,41 @@ class Palpite(models.Model):
 
     def save(self, *args, **kwargs):
         if self.placar_casa > self.placar_visitante:
-            self.vencedor = 'HOME_TEAM'
+            self.vencedor = self.time_casa
         elif self.placar_casa < self.placar_visitante:
-            self.vencedor = 'AWAY_TEAM'
+            self.vencedor = self.time_visitante
         else:
-            self.vencedor = 'DRAW'
+            self.vencedor = 'empate'
 
         super().save(*args, **kwargs)
 
 
     def __str__(self):
         return f"{self.time_casa} x {self.time_visitante}"
+
+class RodadaOriginal(models.Model):
+    rodada_atual = models.IntegerField(default=1)
+    time_casa = models.CharField(max_length=50)
+    placar_casa = models.IntegerField(default=0)
+    time_visitante = models.CharField(max_length=50)
+    placar_visitante = models.IntegerField(default=0)
+    vencedor = models.CharField(max_length=50)
+    finalizado = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if self.placar_casa > self.placar_visitante:
+            self.vencedor = self.time_casa
+        elif self.placar_casa < self.placar_visitante: 
+            self.vencedor = self.time_visitante
+        else:
+            self.vencedor = 'empate'
+
+        super().save(*args, **kwargs)
+
+
+    def __str__(self):
+        return f"{self.time_casa} x {self.time_visitante}"
+
 
 
 class Rodada(models.Model):

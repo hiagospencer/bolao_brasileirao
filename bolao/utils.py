@@ -71,13 +71,73 @@ def criar_rodadas_campeonato():
 def calcular_pontuacao(user):
   '''
     Args:
-      Receber como argumento o usuario para fazer o filtro da tabela Palpite "score" "winner"
+      Receber como argumento o usuario para fazer o filtro da tabela Palpite "score" "winner" "fullTime
   '''
   usuario = user
-  dados = get_api_data(29)
   rodadas = Palpite.objects.filter(finalizado=False, usuario=usuario)
+  pontuacao_usuario = Classificacao.objects.get(usuario__usuario=user)
+
+
+  for rodada in rodadas:
+    try:
+      resultado_original = RodadaOriginal.objects.get(rodada_atual=rodada.rodada_atual, time_casa=rodada.time_casa,time_visitante=rodada.time_visitante)
+
+      # Verifica se os placares coincidem
+      if (rodada.vencedor == resultado_original.vencedor):
+        pontuacao_usuario.pontos += 2
+        pontuacao_usuario.vitorias += 1
+
+
+      # verifica os placares exatos
+      if (rodada.placar_casa == resultado_original.placar_casa and
+          rodada.placar_visitante == resultado_original.placar_visitante):
+        pontuacao_usuario.pontos += 3
+        pontuacao_usuario.placar_exato += 1
+
+
+      else:
+        print("Resultados não exatos")  # Atribui 0 se os resultados não forem iguais
+
+
+      rodada.finalizado = True
+      rodada.save()
+      pontuacao_usuario.save()
+    except :
+      continue
 
 
 
 def salvar_rodada_original():
-  pass
+  dados = get_api_data(29)
+  time_casa = []
+  placar_casa = []
+  time_visitante = []
+  placar_visitante = []
+  rodada = []
+
+  for jogo in dados["matches"]:
+    placar_casa.append(jogo['score']['fullTime']['home'])
+    placar_visitante.append(jogo['score']['fullTime']['away'])
+
+    time_casa.append(jogo['homeTeam']['shortName'])
+    time_visitante.append(jogo['awayTeam']['shortName'])
+    rodada.append(jogo['matchday'])
+
+  resultado_tabela = {
+      "time_casa": time_casa,
+      "placar_casa": placar_casa,
+      "placar_visitante": placar_visitante,
+      "time_visitante": time_visitante,
+      "rodada": rodada
+      }
+
+  df_tabela = pd.DataFrame(resultado_tabela)
+  for _, row in df_tabela.iterrows():
+    jogos_rodada_criado  = RodadaOriginal.objects.create(
+        time_casa=row['time_casa'],
+        placar_casa=row['placar_casa'],
+        time_visitante=row['time_visitante'],
+        placar_visitante=row['placar_visitante'],
+        rodada_atual= row['rodada'],
+          )
+  print(f'Rodada criada!')

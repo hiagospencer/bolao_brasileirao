@@ -1,0 +1,8 @@
+criar uma maneira de fazer as pontuações dinamicamente, de preferencia uma views para configurações.
+
+fazer com oq sempre atualize os resultados dos jogos para fazer a computação dos pontos.
+verificar na API quais jogos ainda não foram realizados.
+
+fazer com que, quando uma rodada de palpites for salvo, não poder repetir a rodada.
+
+criar a views meus palpites.
