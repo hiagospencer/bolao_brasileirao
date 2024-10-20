@@ -26,7 +26,7 @@
                 <a href="#" class="active">Palpites <i class="fa-solid fa-caret-down"></i></a>
                 <div class="dropdown-menu">
                     <a href="{% url 'palpites' %}">Criar Palpites</a>
-                    <a href="#">Meus Palpites</a>
+                    <a href="{% url 'meus_palpites' %}">Meus Palpites</a>
                 </div>
             </li>
             {% else %}
@@ -34,7 +34,7 @@
                 <a href="#">Palpites <i class="fa-solid fa-caret-down"></i></a>
                 <div class="dropdown-menu">
                     <a href="{% url 'palpites' %}">Criar Palpites</a>
-                    <a href="#">Meus Palpites</a>
+                    <a href="{% url 'meus_palpites' %}">Meus Palpites</a>
                 </div>
             </li>
             {% endif %}

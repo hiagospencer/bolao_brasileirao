@@ -6,3 +6,5 @@ verificar na API quais jogos ainda não foram realizados.
 fazer com que, quando uma rodada de palpites for salvo, não poder repetir a rodada.
 
 criar a views meus palpites.
+
+ajeitar a página meus palpites as imagens dos times

@@ -29,56 +29,78 @@ def palpites(request):
     rodada_dict = []
     placar_casa = []
     placar_visitante = []
-    calcular_pontuacao(user)
+    img_casa = []
+    img_visitante = []
 
-    # adicionando os times casa e time visitantes dentros das lista para depois salvar no banco de dados
-    for rodada in rodadas:
-        time_casa.append(rodada.time_casa)
-        time_visitante.append(rodada.time_visitante)
+    if request.user.is_authenticated:
+        calcular_pontuacao(user)
 
-    if request.method == "POST":
-        dados = request.POST
-        resultados_form = dict(dados)
+        # adicionando os times casa e time visitantes dentros das lista para depois salvar no banco de dados
+        for rodada in rodadas:
+            time_casa.append(rodada.time_casa)
+            time_visitante.append(rodada.time_visitante)
 
+        if request.method == "POST":
+            data = get_api_data(29)
+            dados = request.POST
+            resultados_form = dict(dados)
 
-        if resultados_form["resultado_casa"] and resultados_form["resultado_visitante"]:
-            for resultado_visitante in resultados_form["resultado_visitante"]:
-                placar_visitante.append(resultado_visitante)
+            #salvando os emblemas dos times no banco de dados
+            for jogo in data["matches"]:
+                img_casa.append(jogo['homeTeam']['crest'])
+                img_visitante.append(jogo['awayTeam']['crest'])
 
-            for resultado_casa in resultados_form["resultado_casa"]:
-                placar_casa.append(resultado_casa)
+            #salvando os resultados dos times e rodadas no banco de dados
+            if resultados_form["resultado_casa"] and resultados_form["resultado_visitante"]:
+                for resultado_visitante in resultados_form["resultado_visitante"]:
+                    placar_visitante.append(resultado_visitante)
 
-            for rodada in resultados_form["rodada_atual"]:
-                rodada_dict.append(rodada)
+                for resultado_casa in resultados_form["resultado_casa"]:
+                    placar_casa.append(resultado_casa)
 
-
-        resultado_tabela = {
-                "time_casa": time_casa,
-                "placar_casa": placar_casa,
-                "placar_visitante": placar_visitante,
-                "time_visitante": time_visitante,
-                "rodada_atual": rodada_dict
-        }
-
-        df_tabela = pd.DataFrame(resultado_tabela)
-            # Iterar sobre o DataFrame e criar instâncias do modelo Rodada1
-            #criando o banco de dados
-        for _, row in df_tabela.iterrows():
-            jogos_rodada_criado  = Palpite.objects.create(
-                time_casa=row['time_casa'],
-                placar_casa=row['placar_casa'],
-                placar_visitante=row['placar_visitante'],
-                time_visitante=row['time_visitante'],
-                usuario=user,
-                rodada_atual=row['rodada_atual'],
-                )
+                for rodada in resultados_form["rodada_atual"]:
+                    rodada_dict.append(rodada)
 
 
-    # thread = threading.Thread(target=criar_rodadas_campeonato)
-    # thread.start()
-    context = {"rodadas":rodadas}
-    return render(request,'palpites.html', context)
+            resultado_tabela = {
+                    "time_casa": time_casa,
+                    "img_casa": img_casa,
+                    "placar_casa": placar_casa,
+                    "placar_visitante": placar_visitante,
+                    "time_visitante": time_visitante,
+                    "img_visitante": img_visitante,
+                    "rodada_atual": rodada_dict
+            }
 
+            df_tabela = pd.DataFrame(resultado_tabela)
+                # Iterar sobre o DataFrame e criar instâncias do modelo Rodada1
+                #criando o banco de dados
+            for _, row in df_tabela.iterrows():
+                jogos_rodada_criado  = Palpite.objects.create(
+                    time_casa=row['time_casa'],
+                    imagem_casa=row['img_casa'],
+                    placar_casa=row['placar_casa'],
+                    placar_visitante=row['placar_visitante'],
+                    time_visitante=row['time_visitante'],
+                    imagem_fora=row['img_visitante'],
+                    usuario=user,
+                    rodada_atual=row['rodada_atual'],
+                    )
+        context = {"rodadas":rodadas}
+        return render(request,'palpites.html', context)
+
+    else:
+        # thread = threading.Thread(target=criar_rodadas_campeonato)
+        # thread.start()
+        context = {"rodadas":rodadas}
+        return render(request,'palpites.html', context)
+
+
+def meus_palpites(request):
+    user = request.user
+    rodadas = Palpite.objects.filter(usuario=user)
+    context = {'rodadas':rodadas}
+    return render(request,'meus_palpites.html', context)
 
 def regras(request):
     return render(request,'regras.html')

@@ -31,6 +31,8 @@ class Palpite(models.Model):
     placar_casa = models.IntegerField(default=0)
     time_visitante = models.CharField(max_length=50)
     placar_visitante = models.IntegerField(default=0)
+    imagem_casa = models.ImageField(upload_to='emblemas_times')
+    imagem_fora = models.ImageField(upload_to='emblemas_times')
     vencedor = models.CharField(max_length=50)
     finalizado = models.BooleanField(default=False)
 
@@ -60,7 +62,7 @@ class RodadaOriginal(models.Model):
     def save(self, *args, **kwargs):
         if self.placar_casa > self.placar_visitante:
             self.vencedor = self.time_casa
-        elif self.placar_casa < self.placar_visitante: 
+        elif self.placar_casa < self.placar_visitante:
             self.vencedor = self.time_visitante
         else:
             self.vencedor = 'empate'

@@ -59,9 +59,9 @@ def criar_rodadas_campeonato():
       jogos_rodada_criado  = Rodada.objects.create(
         time_casa=row['time_casa'],
         imagem_casa=row['img_casa'],
-          time_visitante=row['time_visitante'],
-          imagem_fora=row['img_visitante'],
-          rodada_atual= row['rodada'],
+        time_visitante=row['time_visitante'],
+        imagem_fora=row['img_visitante'],
+        rodada_atual= row['rodada'],
           )
     print(f'Rodada {contador} criada!')
     contador += 1  # Incrementa o contador em 1 a cada iteração
@@ -78,32 +78,35 @@ def calcular_pontuacao(user):
   pontuacao_usuario = Classificacao.objects.get(usuario__usuario=user)
 
 
-  for rodada in rodadas:
-    try:
-      resultado_original = RodadaOriginal.objects.get(rodada_atual=rodada.rodada_atual, time_casa=rodada.time_casa,time_visitante=rodada.time_visitante)
+  try:
+    for rodada in rodadas:
+      try:
+        resultado_original = RodadaOriginal.objects.get(rodada_atual=rodada.rodada_atual, time_casa=rodada.time_casa,time_visitante=rodada.time_visitante)
 
-      # Verifica se os placares coincidem
-      if (rodada.vencedor == resultado_original.vencedor):
-        pontuacao_usuario.pontos += 2
-        pontuacao_usuario.vitorias += 1
-
-
-      # verifica os placares exatos
-      if (rodada.placar_casa == resultado_original.placar_casa and
-          rodada.placar_visitante == resultado_original.placar_visitante):
-        pontuacao_usuario.pontos += 3
-        pontuacao_usuario.placar_exato += 1
+        # Verifica se os placares coincidem
+        if (rodada.vencedor == resultado_original.vencedor):
+          pontuacao_usuario.pontos += 2
+          pontuacao_usuario.vitorias += 1
 
 
-      else:
-        print("Resultados não exatos")  # Atribui 0 se os resultados não forem iguais
+        # verifica os placares exatos
+        if (rodada.placar_casa == resultado_original.placar_casa and
+            rodada.placar_visitante == resultado_original.placar_visitante):
+          pontuacao_usuario.pontos += 3
+          pontuacao_usuario.placar_exato += 1
 
 
-      rodada.finalizado = True
-      rodada.save()
-      pontuacao_usuario.save()
-    except :
-      continue
+        else:
+          print("Resultados não exatos")  # Atribui 0 se os resultados não forem iguais
+
+
+        rodada.finalizado = True
+        rodada.save()
+        pontuacao_usuario.save()
+      except :
+        continue
+  except:
+    print('tabela pontuação não encontrada')
 
 
 
