@@ -8,7 +8,7 @@
 <section class="rodadas">
     <form action="{% url 'palpites' %}" method="POST">
         {% csrf_token %}
-        {% for jogo in rodadas %}
+        {% for jogo in posts %}
         <div class="rodada">
             <div class="time_casa">
                 <img src="{{ jogo.imagem_casa }}" alt="{{ jogo.time_casa }}">
@@ -36,5 +36,6 @@
         </div>
         {% endfor %}
     </form>
+        {% include 'auxiliar/pagination.html' %}
 </section>
 {% endblock %}

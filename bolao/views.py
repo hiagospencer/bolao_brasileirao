@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 import pandas as pd
 
 from .models import *
@@ -14,26 +15,33 @@ def homepage(request):
     user = request.user
     usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
-
-    # salvar_rodada_original()
+    calcular_pontuacao(user)
+    # criar_rodadas_campeonato()
+    # thread = threading.Thread(target=criar_rodadas_campeonato)
+    # thread.start()
     context = {'usuarios':usuarios}
     return render(request, 'index.html',context)
 
 
 
 def palpites(request):
-    user = request.user
-    rodadas = Rodada.objects.filter(rodada_atual=29)
-    time_casa = []
-    time_visitante = []
-    rodada_dict = []
-    placar_casa = []
-    placar_visitante = []
-    img_casa = []
-    img_visitante = []
 
     if request.user.is_authenticated:
-        calcular_pontuacao(user)
+        user = request.user
+        time_casa = []
+        time_visitante = []
+        rodada_dict = []
+        placar_casa = []
+        placar_visitante = []
+        img_casa = []
+        img_visitante = []
+        verificacao_partida, criado = Verificacao.objects.get_or_create(user=user)
+        rodadas = Rodada.objects.filter(rodada_atual=verificacao_partida.partida_atual )
+        # calcular_pontuacao(user)
+
+        if verificacao_partida.partida_atual == verificacao_partida.partida_final:
+            verificacao_partida.verificado = True
+            verificacao_partida.save()
 
         # adicionando os times casa e time visitantes dentros das lista para depois salvar no banco de dados
         for rodada in rodadas:
@@ -41,7 +49,7 @@ def palpites(request):
             time_visitante.append(rodada.time_visitante)
 
         if request.method == "POST":
-            data = get_api_data(29)
+            data = get_api_data(verificacao_partida.partida_atual)
             dados = request.POST
             resultados_form = dict(dados)
 
@@ -86,21 +94,30 @@ def palpites(request):
                     usuario=user,
                     rodada_atual=row['rodada_atual'],
                     )
-        context = {"rodadas":rodadas}
-        return render(request,'palpites.html', context)
 
-    else:
-        # thread = threading.Thread(target=criar_rodadas_campeonato)
-        # thread.start()
-        context = {"rodadas":rodadas}
+            verificacao_partida.partida_atual += 1
+            verificacao_partida.save()
+            return redirect('palpites')
+
+        context = {"rodadas":rodadas, 'verificacao_partida':verificacao_partida.verificado}
         return render(request,'palpites.html', context)
+    else:
+        return redirect('login_bolao')
 
 
 def meus_palpites(request):
-    user = request.user
-    rodadas = Palpite.objects.filter(usuario=user)
-    context = {'rodadas':rodadas}
-    return render(request,'meus_palpites.html', context)
+    if request.user.is_authenticated:
+        user = request.user
+        rodadas = Palpite.objects.filter(usuario=user)
+        #pagination
+        paginator = Paginator(rodadas, 10)
+        page_obj = request.GET.get('page')
+        posts = paginator.get_page(page_obj)
+
+        context = {'posts':posts, 'rodadas':rodadas}
+        return render(request,'meus_palpites.html', context)
+    else:
+        return redirect('login_bolao')
 
 def regras(request):
     return render(request,'regras.html')

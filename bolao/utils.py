@@ -111,7 +111,8 @@ def calcular_pontuacao(user):
 
 
 def salvar_rodada_original():
-  dados = get_api_data(29)
+  
+  dados = get_api_data(3)
   time_casa = []
   placar_casa = []
   time_visitante = []

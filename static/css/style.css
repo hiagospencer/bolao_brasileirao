@@ -34,7 +34,7 @@ a:hover {
   color: rgb(87, 87, 13) !important;
 }
 
-nav {
+.header {
   position: fixed;
   top: 0;
   width: 100%;

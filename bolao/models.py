@@ -83,7 +83,18 @@ class Rodada(models.Model):
     placar_visitante = models.CharField(max_length=50)
     imagem_casa = models.ImageField(upload_to='emblemas_times')
     imagem_fora = models.ImageField(upload_to='emblemas_times')
-    vencedor = models.CharField(max_length=50)
+    preenchido = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.time_casa} x {self.time_visitante}"
+
+
+class Verificacao(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    verificado = models.BooleanField(default=True)
+    partida_atual = models.IntegerField(default=1)
+    partida_final = models.IntegerField(default=38)
+
+    def __str__(self):
+        return f"Usuário: {self.user} - Verificado: {self.verificado} - partida atual: {self.partida_atual}ª - partida final: {self.partida_final}ª"

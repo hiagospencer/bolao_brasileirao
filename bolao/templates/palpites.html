@@ -34,10 +34,22 @@
 
         </div>
         {% endfor %}
+
         {% if user.is_authenticated %}
-            <div class="salvar">
-                <button>Salvar Palpites</button>
-            </div>
+            {% if not verificacao_partida %} <!-- se for false -->
+                <div class="salvar">
+                    <button>Salvar Palpites</button>
+                </div>
+            {% else %}
+                <div class="alert alert-warning mt-2" role="alert">
+                    <span style="cursor: not-allowed;">Rodadas Bloqueadas <i class="fa-solid fa-lock"></i></span>
+                </div>
+            {% endif %}
+
+        {% else %}
+                <div class="btn btn-info">
+                    <a href="{% url 'cadastro' %}">Cadastre-se para participar!</a>
+                </div>
         {% endif %}
     </form>
 </section>
