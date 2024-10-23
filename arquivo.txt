@@ -1,15 +1,7 @@
-criar uma maneira de fazer as pontuações dinamicamente, de preferencia uma views para configurações.
 
 fazer com oq sempre atualize os resultados dos jogos para fazer a computação dos pontos.
 verificar na API quais jogos ainda não foram realizados.
 
-fazer com que, quando uma rodada de palpites for salvo, não poder repetir a rodada.
-
-sempre que fizer o submit, adicionar um número na rodada.
-    - criar uma variável que fique um valor final para todos os usuários
-
 Tentar criar as rodadas originais de acordo com o andamento da rodada
-Criar uma views para fazer as configurações do site para somente o superuser
-Fazer com oq calcule todos os palpites de todos os usuários de uma vez
 
 criar a rodada original depois que os jogos acabarem

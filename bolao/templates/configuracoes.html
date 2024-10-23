@@ -1,0 +1,50 @@
+{% extends 'auxiliar/base.html' %} {% load static %} {% block title %} Bolão | Configurações {% endblock%} {% block body %}
+
+<section class="configuracoes">
+    <h2>Configurações:</h2>
+    <form action="{% url 'configuracoes'%}" method="POST">
+        {% csrf_token %}
+        <div class="row g-3">
+            <h4>Escolha a rodada para o usuário salvar os palpites: </h4><br>
+
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger mt-2" role="alert">
+                    <span{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</span>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="col">
+                <input type="number" class="form-control" placeholder="Rodada Inicial" aria-label="First name" name="rodada_inicial">
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" placeholder="Rodada Final" aria-label="Last name" name="rodada_final">
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Rodada Original" aria-label="Last name"
+                        name="rodada_original" style="width: 20% !important;">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck1" name="criar_rodadas_campeonato">
+                        <label class="form-check-label" for="gridCheck1">
+                            Crias as rodadas dos campeonato
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+{% endblock %}

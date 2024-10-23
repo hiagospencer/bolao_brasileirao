@@ -54,6 +54,16 @@
             <li><a href="{% url 'perfil' %}"><i class="fa-solid fa-user"></i>Perfil</a></li>
             {% endif %}
 
+            <!-- Link somente para o superUser-->
+            {% if user.is_superuser %}
+                {% if request.resolver_match.url_name in "/configuracoes" %}
+                <li><a href="{% url 'configuracoes' %}" class="active"><i class="fa-solid fa-gear"></i>Configurações</a></li>
+                {% else %}
+                <li><a href="{% url 'configuracoes' %}"><i class="fa-solid fa-gear"></i>Configurações</a></li>
+                {% endif %}
+            {% endif %}
+
+
             <li class="login"><a href="{% url 'logout' %}"><i class="fa-solid fa-person-running"></i>Sair</a>
             </li>
             {% else %}

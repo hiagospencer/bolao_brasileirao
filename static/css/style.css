@@ -417,6 +417,15 @@ form {
 
 /* ========================== fim da Página Regras ====================== */
 
+
+.configuracoes {
+  margin: 130px auto auto auto;
+  padding: 0 2%;
+
+}
+
+/* ========================== fim da Página Configurações ====================== */
+
 footer {
   margin-top: 60px;
   background-color: #959292;

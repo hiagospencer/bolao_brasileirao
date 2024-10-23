@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import user_passes_test
 import pandas as pd
 
 from .models import *
@@ -12,16 +13,19 @@ from .api_brasileirao import get_api_data
 
 
 def homepage(request):
-    user = request.user
-    usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
+    if request.user.is_authenticated:
+        user = request.user
+        usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
-    calcular_pontuacao(user)
-    # criar_rodadas_campeonato()
-    # thread = threading.Thread(target=criar_rodadas_campeonato)
-    # thread.start()
-    context = {'usuarios':usuarios}
-    return render(request, 'index.html',context)
+        calcular_pontuacao(user)
+        context = {'usuarios':usuarios}
+        return render(request, 'index.html',context)
+    else:
+        user = request.user
+        usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
+        context = {'usuarios':usuarios}
+        return render(request, 'index.html',context)
 
 
 def palpites(request):
@@ -121,6 +125,43 @@ def meus_palpites(request):
 
 def regras(request):
     return render(request,'regras.html')
+
+@user_passes_test(lambda u: u.is_superuser)
+def configuracoes(request):
+    if request.method == 'POST':
+        rodada_inicial = request.POST.get('rodada_inicial')
+        rodada_final = request.POST.get('rodada_final')
+        rodada_original = request.POST.get('rodada_original')
+        criar_rodadas = request.POST.get('criar_rodadas_campeonato')
+
+        if rodada_original:
+            thread = threading.Thread(target=salvar_rodada_original(rodada_original))
+            thread.start()
+
+        if criar_rodadas:
+            if Rodada.objects.exists():
+                messages.error(request, 'Rodadas campeonato já foram criadas!')
+                return redirect('configuracoes')
+            else:
+                thread = threading.Thread(target=criar_rodadas_campeonato())
+                thread.start()
+                print("Rodadas Criadas com sucesso!")
+
+        else:
+            print("Checkbox desativo")
+        # verificando se tem rodadas no inputs e salvando no banco de dados
+        if rodada_inicial and rodada_final:
+            if int(rodada_inicial) >= int(rodada_final) or int(rodada_final) > 38:
+                messages.error(request, 'A rodada inicial não pode ser maior ou igual que a rodada final. Rodada final não poede ser maior que 38')
+                return redirect('configuracoes')
+            else:
+                setar_rodadaAtual_rodadaFinal(rodada_inicial, rodada_final)
+                print('Rodadas setadas!')
+        else:
+            messages.error(request, 'Campos rodadas vazios!')
+            return redirect('configuracoes')
+
+    return render(request,'configuracoes.html')
 
 
 def perfil(request):

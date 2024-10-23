@@ -7,6 +7,7 @@ urlpatterns = [
     path('palpites', palpites, name='palpites'),
     path('meus-palpites', meus_palpites, name='meus_palpites'),
     path('regras', regras, name='regras'),
+    path('configuracoes', configuracoes, name='configuracoes'),
     path('perfil', perfil, name='perfil'),
 
     path('login', login_bolao, name='login_bolao'),

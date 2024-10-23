@@ -26,7 +26,6 @@ def validar_senha(senha, confirmar_senha):
   return re.match(regex, senha) is not None and senha == confirmar_senha
 
 
-
 def criar_rodadas_campeonato():
 
   contador = 1
@@ -65,7 +64,7 @@ def criar_rodadas_campeonato():
           )
     print(f'Rodada {contador} criada!')
     contador += 1  # Incrementa o contador em 1 a cada iteração
-    time.sleep(11)
+    time.sleep(5)
 
 
 def calcular_pontuacao(user):
@@ -110,9 +109,9 @@ def calcular_pontuacao(user):
 
 
 
-def salvar_rodada_original():
-  
-  dados = get_api_data(3)
+def salvar_rodada_original(rodada_original):
+
+  dados = get_api_data(rodada_original)
   time_casa = []
   placar_casa = []
   time_visitante = []
@@ -145,3 +144,20 @@ def salvar_rodada_original():
         rodada_atual= row['rodada'],
           )
   print(f'Rodada criada!')
+
+
+
+def setar_rodadaAtual_rodadaFinal(rodada_atual, rodada_final):
+  '''
+    Retorna todos os dados dos usuarios atualizado para rodada atual e rodada final.
+
+    Args:
+      1º argumento: Qual a rodada inicial
+      2º argumento: Qual a rodada final
+  '''
+  usuario_verificado = Verificacao.objects.all()
+  for usuario in usuario_verificado:
+    usuario.partida_atual = rodada_atual
+    usuario.partida_final = rodada_final
+    usuario.verificado = False
+    usuario.save()
