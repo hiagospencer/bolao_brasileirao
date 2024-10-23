@@ -119,8 +119,12 @@ def salvar_rodada_original(rodada_original):
   rodada = []
 
   for jogo in dados["matches"]:
-    placar_casa.append(jogo['score']['fullTime']['home'])
-    placar_visitante.append(jogo['score']['fullTime']['away'])
+    if jogo['score']['fullTime']['home'] == None:
+      placar_casa.append(9999)
+      placar_visitante.append(9999)
+    else:
+      placar_casa.append(jogo['score']['fullTime']['home'])
+      placar_visitante.append(jogo['score']['fullTime']['away'])
 
     time_casa.append(jogo['homeTeam']['shortName'])
     time_visitante.append(jogo['awayTeam']['shortName'])

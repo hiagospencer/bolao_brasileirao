@@ -92,10 +92,9 @@ class Rodada(models.Model):
 
 class Verificacao(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    verificado = models.BooleanField(default=True)
+    verificado = models.BooleanField(default=False)
     partida_atual = models.IntegerField(default=1)
     partida_final = models.IntegerField(default=38)
 
     def __str__(self):
         return f"Usuário: {self.user} - Verificado: {self.verificado} - partida atual: {self.partida_atual}ª - partida final: {self.partida_final}ª"
-

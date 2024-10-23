@@ -5,3 +5,6 @@ verificar na API quais jogos ainda não foram realizados.
 Tentar criar as rodadas originais de acordo com o andamento da rodada
 
 criar a rodada original depois que os jogos acabarem
+
+criar o esqueceu sua senha
+
