@@ -17,7 +17,8 @@ def homepage(request):
         user = request.user
         usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
-        calcular_pontuacao(user)
+        thread = threading.Thread(target=calcular_pontuacao(user))
+        thread.start()
         context = {'usuarios':usuarios}
         return render(request, 'index.html',context)
     else:
@@ -128,15 +129,23 @@ def regras(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def configuracoes(request):
+    user = request.user
     if request.method == 'POST':
         rodada_inicial = request.POST.get('rodada_inicial')
         rodada_final = request.POST.get('rodada_final')
         rodada_original = request.POST.get('rodada_original')
         criar_rodadas = request.POST.get('criar_rodadas_campeonato')
+        resetar_pontuacao = request.POST.get('resetar_pontuacao')
+
 
         if rodada_original:
             thread = threading.Thread(target=salvar_rodada_original(rodada_original))
             thread.start()
+
+        if resetar_pontuacao:
+            thread = threading.Thread(target=resetar_pontuacao_usuarios())
+            thread.start()
+
 
         if criar_rodadas:
             if Rodada.objects.exists():
@@ -151,7 +160,7 @@ def configuracoes(request):
             print("Checkbox desativo")
         # verificando se tem rodadas no inputs e salvando no banco de dados
         if rodada_inicial and rodada_final:
-            if int(rodada_inicial) >= int(rodada_final) or int(rodada_final) > 38:
+            if int(rodada_inicial) >= int(rodada_final) or int(rodada_final) > 39:
                 messages.error(request, 'A rodada inicial não pode ser maior ou igual que a rodada final. Rodada final não poede ser maior que 38')
                 return redirect('configuracoes')
             else:

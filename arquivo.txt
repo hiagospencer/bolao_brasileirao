@@ -1,10 +1,4 @@
 
-fazer com oq sempre atualize os resultados dos jogos para fazer a computação dos pontos.
-verificar na API quais jogos ainda não foram realizados.
-
-Tentar criar as rodadas originais de acordo com o andamento da rodada
-
-criar a rodada original depois que os jogos acabarem
+esperar até que o joogo do vasco seja finalizado da rodada 19 para ver se vai computar a pontuação
 
 criar o esqueceu sua senha
-

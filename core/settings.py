@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from decouple import config
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -14,7 +15,7 @@ MESSAGE_TAGS = {
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0kd*0gdxql5@*hzeg4%qjhq*oom9kla*u@6j5hs=6bo6-gne0h'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -127,3 +128,17 @@ MEDIA_URL = "imagens/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FROM_EMAIL = "hiagosouzadev10@gmail.com"
+
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST_USER='hiagosouzadev10@gmail.com'
+EMAIL_HOST_PASSWORD='emillylinda10'
+EMAIL_USE_TSL=True
+EMAIL_PORT=587
+EMAIL_HOST='smtp.gmail.com'
+# EMAIL_HOST_USER=config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TSL=config('EMAIL_USE_TSL')
+# EMAIL_PORT=config('EMAIL_PORT')
+# EMAIL_HOST=config('EMAIL_HOST')
