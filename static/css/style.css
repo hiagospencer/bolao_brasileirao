@@ -286,7 +286,7 @@ tr:hover {
   max-width: 900px;
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 40px auto 250px auto;
 }
 
 form {
@@ -387,7 +387,7 @@ form {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 160px auto 0 auto;
+  margin: 160px auto 210px auto;
 }
 
 .pontuacoes {
