@@ -243,10 +243,8 @@ def cadastro(request):
             messages.error(request, 'Já existe um usuário cadastrado com esse nome.')
             return redirect('cadastro')
 
-        validacao_senha = validar_senha(senha, confirme_senha)
-
-        if validacao_senha == False:
-            messages.error(request, "Senha inválida. A senha deve ter pelo menos 8 caracteres, uma letra maiúscula e um número.")
+        if senha != confirme_senha:
+            messages.error(request, "Senha inválida. senhas são diferentes")
             return redirect('cadastro')
 
         if Usuario.objects.filter(email=email).exists():
