@@ -135,7 +135,7 @@ def configuracoes(request):
         rodada_final = request.POST.get('rodada_final')
         rodada_original = request.POST.get('rodada_original')
         apagar_rodada = request.POST.get('apagar_rodada')
-        criar_rodadas = request.POST.get('criar_rodadas_campeonato')
+        criar_rodadas = request.POST.get('criar_rodadas')
         resetar_pontuacao = request.POST.get('resetar_pontuacao')
         bloquear_partidas = request.POST.get('bloquear_partidas')
         desbloquear_partidas = request.POST.get('desbloquear_partidas')
@@ -169,7 +169,7 @@ def configuracoes(request):
                 messages.error(request, 'Rodadas campeonato já foram criadas!')
                 return redirect('configuracoes')
             else:
-                thread = threading.Thread(target=criar_rodadas_campeonato())
+                thread = threading.Thread(target=criar_rodadas_campeonato(criar_rodadas))
                 thread.start()
                 print("Rodadas Criadas com sucesso!")
 
