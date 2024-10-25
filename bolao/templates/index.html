@@ -21,9 +21,20 @@
                 - As premiações serão pagas ao final do turno via PIX.
             </p>
         </div>
+
+        {% if user.is_authenticated %}
+
         <div class="inscricao">
-            <button onclick="return sendToWhatSapp('{{request.user}}')">Clique aqui para participar</button>
+            <!-- <button onclick="return sendToWhatSapp('{{request.user}}')">Clique aqui para participar</button> -->
+            <a href="{% url 'palpites' %}" target="_blank">Criar palpites</a>
         </div>
+
+        {% else %}
+            <div class="inscricao">
+                <!-- <button onclick="return sendToWhatSapp('{{request.user}}')">Clique aqui para participar</button> -->
+                <a href="{% url 'cadastro' %}" target="_blank">Clique aqui para participar</a>
+            </div>
+        {% endif %}
     </div>
 </section>
 

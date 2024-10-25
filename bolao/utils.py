@@ -26,41 +26,45 @@ def validar_senha(senha, confirmar_senha):
   return re.match(regex, senha) is not None and senha == confirmar_senha
 
 
-def criar_rodadas_campeonato(num_rodada):
+def criar_rodadas_campeonato():
 
-  time.sleep()
-  data = get_api_data(num_rodada)
-  time_casa = []
-  img_casa = []
-  time_visitante = []
-  img_visitante = []
-  rodada = []
+  contador = 1
+  while contador <= 38:
+    time.sleep(2)
+    data = get_api_data(contador)
+    time_casa = []
+    img_casa = []
+    time_visitante = []
+    img_visitante = []
+    rodada = []
 
-  for jogo in data["matches"]:
-    time_casa.append(jogo['homeTeam']['shortName'])
-    img_casa.append(jogo['homeTeam']['crest'])
-    time_visitante.append(jogo['awayTeam']['shortName'])
-    img_visitante.append(jogo['awayTeam']['crest'])
-    rodada.append(jogo['matchday'])
+    for jogo in data["matches"]:
+      time_casa.append(jogo['homeTeam']['shortName'])
+      img_casa.append(jogo['homeTeam']['crest'])
+      time_visitante.append(jogo['awayTeam']['shortName'])
+      img_visitante.append(jogo['awayTeam']['crest'])
+      rodada.append(jogo['matchday'])
 
-  resultado_tabela = {
+    resultado_tabela = {
       "time_casa": time_casa,
       "img_casa": img_casa,
       "img_visitante": img_visitante,
       "time_visitante": time_visitante,
       "rodada": rodada
-    }
+      }
 
-  df_tabela = pd.DataFrame(resultado_tabela)
-  for _, row in df_tabela.iterrows():
-    jogos_rodada_criado  = Rodada.objects.create(
+    df_tabela = pd.DataFrame(resultado_tabela)
+    for _, row in df_tabela.iterrows():
+      jogos_rodada_criado  = Rodada.objects.create(
         time_casa=row['time_casa'],
         imagem_casa=row['img_casa'],
         time_visitante=row['time_visitante'],
         imagem_fora=row['img_visitante'],
         rodada_atual= row['rodada'],
           )
-  print(f'Rodada {num_rodada} criada!')
+    print(f'Rodada {contador} criada!')
+    contador += 1  # Incrementa o contador em 1 a cada iteração
+    time.sleep(5)
 
 
 def calcular_pontuacao(user):

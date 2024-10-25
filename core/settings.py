@@ -18,9 +18,11 @@ MESSAGE_TAGS = {
 SECRET_KEY = "django-insecure-0kd*0gdxql5@*hzeg4%qjhq*oom9kla*u@6j5hs=6bo6-gne0h"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = ['https://bolao-virtual.onrender.com/']
 
 
 # Application definition

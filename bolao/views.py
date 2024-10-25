@@ -169,7 +169,7 @@ def configuracoes(request):
                 messages.error(request, 'Rodadas campeonato já foram criadas!')
                 return redirect('configuracoes')
             else:
-                thread = threading.Thread(target=criar_rodadas_campeonato(criar_rodadas))
+                thread = threading.Thread(target=criar_rodadas_campeonato())
                 thread.start()
                 print("Rodadas Criadas com sucesso!")
 
