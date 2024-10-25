@@ -134,18 +134,35 @@ def configuracoes(request):
         rodada_inicial = request.POST.get('rodada_inicial')
         rodada_final = request.POST.get('rodada_final')
         rodada_original = request.POST.get('rodada_original')
+        apagar_rodada = request.POST.get('apagar_rodada')
         criar_rodadas = request.POST.get('criar_rodadas_campeonato')
         resetar_pontuacao = request.POST.get('resetar_pontuacao')
+        bloquear_partidas = request.POST.get('bloquear_partidas')
+        desbloquear_partidas = request.POST.get('desbloquear_partidas')
 
 
         if rodada_original:
             thread = threading.Thread(target=salvar_rodada_original(rodada_original))
             thread.start()
 
+        if apagar_rodada:
+            RodadaOriginal.objects.filter(rodada_atual=apagar_rodada).delete()
+
         if resetar_pontuacao:
             thread = threading.Thread(target=resetar_pontuacao_usuarios())
             thread.start()
 
+        if bloquear_partidas:
+            bloquear = Verificacao.objects.all()
+            for partida in bloquear:
+                partida.verificado = True
+                partida.save()
+
+        if desbloquear_partidas:
+            bloquear = Verificacao.objects.all()
+            for partida in bloquear:
+                partida.verificado = False
+                partida.save()
 
         if criar_rodadas:
             if Rodada.objects.exists():
@@ -158,6 +175,8 @@ def configuracoes(request):
 
         else:
             print("Checkbox desativo")
+
+
         # verificando se tem rodadas no inputs e salvando no banco de dados
         if rodada_inicial and rodada_final:
             if int(rodada_inicial) >= int(rodada_final) or int(rodada_final) > 39:

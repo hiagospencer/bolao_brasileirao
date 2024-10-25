@@ -98,3 +98,9 @@ class Verificacao(models.Model):
 
     def __str__(self):
         return f"Usuário: {self.user} - Verificado: {self.verificado} - partida atual: {self.partida_atual}ª - partida final: {self.partida_final}ª"
+
+class BloquearPartida(models.Model):
+    rodada_bloqueada = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Rodadas bloqueadas: {self.rodada_bloqueada}'

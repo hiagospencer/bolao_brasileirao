@@ -15,7 +15,7 @@ MESSAGE_TAGS = {
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "django-insecure-0kd*0gdxql5@*hzeg4%qjhq*oom9kla*u@6j5hs=6bo6-gne0h"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -69,10 +69,19 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bolao_virtual',
+        'USER': 'postgres',
+        'PASSWORD': 'emillylinda10',
+        'HOST': 'localhost'
     }
 }
 
@@ -128,15 +137,16 @@ MEDIA_URL = "imagens/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DEFAULT_FROM_EMAIL = "hiagosouzadev10@gmail.com"
+DEFAULT_FROM_EMAIL = "hiaguinhospencer@gmail.com"
 
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_HOST_USER='hiagosouzadev10@gmail.com'
-EMAIL_HOST_PASSWORD='emillylinda10'
-EMAIL_USE_TSL=True
-EMAIL_PORT=587
-EMAIL_HOST='smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST_USER = "hiaguinhospencer@gmail.com"
+EMAIL_HOST_PASSWORD = "irnwrulapjpbpdgk"
+EMAIL_USE_TSL = True
+EMAIL_PORT = 587
+EMAIL_HOST = "smtp.gmail.com"
+
 # EMAIL_HOST_USER=config('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
 # EMAIL_USE_TSL=config('EMAIL_USE_TSL')
