@@ -78,15 +78,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bolao_virtual',
-        'USER': 'postgres',
-        'PASSWORD': 'emillylinda10',
-        'HOST': 'localhost'
+        'NAME': 'bolao_virtual_db',
+        'USER': 'admin',
+        'PASSWORD': 'ZGUMLnWdRnoUy7JishE5EjYOmREE2dGv',
+        'HOST': 'dpg-csdtpqbv2p9s73b1e1u0-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
 
-# Password validation
+# Password validation postgresql://admin:ZGUMLnWdRnoUy7JishE5EjYOmREE2dGv@ dpg-csdtpqbv2p9s73b1e1u0-a/bolao_virtual_db
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
