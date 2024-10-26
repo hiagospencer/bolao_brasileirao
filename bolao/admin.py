@@ -35,6 +35,12 @@ class RodadaAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ("rodada_atual",)
 
+class VerificacaoAdmin(admin.ModelAdmin):
+    model = Verificacao
+    list_display = ["user","verificado", "partida_atual", "partida_final"]
+    list_filter = ["user"]
+    search_fields = ("user",)
+
 
 
 
@@ -43,5 +49,5 @@ admin.site.register(Classificacao, ClassificacaoAdmin)
 admin.site.register(Palpite, PalpiteAdmin)
 admin.site.register(RodadaOriginal, RodadaOriginalAdmin)
 admin.site.register(Rodada, RodadaAdmin)
-admin.site.register(Verificacao)
+admin.site.register(Verificacao, VerificacaoAdmin)
 admin.site.register(BloquearPartida)

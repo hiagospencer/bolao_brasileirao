@@ -6,50 +6,51 @@
 </div>
 
 <section class="rodadas">
+
     <form action="{% url 'palpites' %}" method="POST">
-        {% csrf_token %}
+        {% csrf_token%}
         {% for jogo in rodadas %}
         <div class="rodada">
             <div class="time_casa">
                 <img src="{{ jogo.imagem_casa }}" alt="{{ jogo.time_caasa }}">
                 <span>{{ jogo.time_casa }}</span>
                 <input type="hidden" name="{{ jogo.time_casa }}" value="{{ jogo.time_casa }}" />
-            </div><!--tim_casa-->
+            </div>
 
             <div class="info_rodada">
-                <span class="horario_rodada">Rodada: {{ jogo.rodada_atual }}</span>
+                <span class="horario_rodada">{{ jogo.rodada_atual }}ª Rodada</span>
                 <input type="hidden" name="rodada_atual" value="{{ jogo.rodada_atual }}" />
                 <div class="resultado_jogo">
-                    <input type="number" name="resultado_casa" id="placar" placeholder="0"  required />
+                    <input type="number" name="resultado_casa" id="placar" placeholder="0" />
                     <span>X</span>
-                    <input type="number" name="resultado_visitante" placeholder="0" id="placar" required />
+                    <input type="number" name="resultado_visitante" placeholder="0" id="placar" />
                 </div>
-            </div><!--Rodada-->
+            </div>
 
             <div class="time_visitante">
                 <img src="{{ jogo.imagem_fora }}" alt="{{ jogo.time_visitante }}">
                 <span>{{ jogo.time_visitante }}</span>
                 <input type="hidden" name="{{ jogo.time_visitante }}" value="{{ jogo.time_visitante }}" />
-            </div><!--Time_visitante-->
+            </div>
 
         </div>
         {% endfor %}
 
         {% if user.is_authenticated %}
-            {% if not verificacao_partida %} <!-- se for false mostre, se for True bloquea -->
-                <div class="salvar">
-                    <button type="submit">Salvar Palpites</button>
-                </div>
+            {% if not verificacao_partida %}
+            <div class="salvar">
+                <button type="submit">Salvar Palpites</button>
+            </div>
             {% else %}
-                <div class="alert alert-warning mt-2" role="alert">
-                    <span style="cursor: not-allowed;">Rodadas Bloqueadas <i class="fa-solid fa-lock"></i></span>
-                </div>
+            <div class="alert alert-warning mt-2" role="alert">
+                <span style="cursor: not-allowed;">Rodadas Bloqueadas <i class="fa-solid fa-lock"></i></span>
+            </div>
             {% endif %}
 
         {% else %}
-                <div class="btn btn-info">
-                    <a href="{% url 'cadastro' %}">Cadastre-se para participar!</a>
-                </div>
+        <div class="btn btn-info">
+            <a href="{% url 'cadastro' %}">Cadastre-se para participar!</a>
+        </div>
         {% endif %}
     </form>
 </section>

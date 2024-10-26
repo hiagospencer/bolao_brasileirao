@@ -66,10 +66,16 @@ def palpites(request):
             #salvando os resultados dos times e rodadas no banco de dados
             if resultados_form["resultado_casa"] and resultados_form["resultado_visitante"]:
                 for resultado_visitante in resultados_form["resultado_visitante"]:
-                    placar_visitante.append(resultado_visitante)
+                    if resultado_visitante == '':
+                        placar_visitante.append(0)
+                    else:
+                        placar_visitante.append(resultado_visitante)
 
                 for resultado_casa in resultados_form["resultado_casa"]:
-                    placar_casa.append(resultado_casa)
+                    if resultado_casa == '':
+                        placar_casa.append(0)
+                    else:
+                        placar_casa.append(resultado_casa)
 
                 for rodada in resultados_form["rodada_atual"]:
                     rodada_dict.append(rodada)
