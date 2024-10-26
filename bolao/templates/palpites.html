@@ -38,7 +38,7 @@
         {% if user.is_authenticated %}
             {% if not verificacao_partida %} <!-- se for false mostre, se for True bloquea -->
                 <div class="salvar">
-                    <button>Salvar Palpites</button>
+                    <button type="submit">Salvar Palpites</button>
                 </div>
             {% else %}
                 <div class="alert alert-warning mt-2" role="alert">

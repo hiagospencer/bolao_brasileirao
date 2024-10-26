@@ -283,9 +283,8 @@ tr:hover {
 }
 
 .rodadas {
-  max-width: 900px;
+  max-width: 950px;
   display: flex;
-  flex-wrap: wrap;
   margin: 40px auto 250px auto;
 }
 
@@ -301,8 +300,9 @@ form {
 .rodada {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: row;
-  width: 40%;
+  width: 45%;
   background-color: #fff;
   padding: 25px 0;
   border-radius: 7px;
