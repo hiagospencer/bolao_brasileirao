@@ -285,6 +285,7 @@ tr:hover {
 .rodadas {
   max-width: 950px;
   display: flex;
+  flex-direction: column;
   margin: 40px auto 250px auto;
 }
 
@@ -507,6 +508,7 @@ footer a {
   .tabela {
     background-color: #d1e7dd;
     width: 98%;
+    font-size: 15px;
     overflow: auto;
   }
 
