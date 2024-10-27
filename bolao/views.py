@@ -17,8 +17,8 @@ def homepage(request):
         user = request.user
         usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
-        thread = threading.Thread(target=calcular_pontuacao(user))
-        thread.start()
+        calcular_pontuacao(user)
+       
         context = {'usuarios':usuarios}
         return render(request, 'index.html',context)
     else:

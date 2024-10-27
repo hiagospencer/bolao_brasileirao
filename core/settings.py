@@ -72,22 +72,22 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'bolao_virtual_db',
-#         'USER': 'admin',
-#         'PASSWORD': 'ZGUMLnWdRnoUy7JishE5EjYOmREE2dGv',
-#         'HOST': 'dpg-csdtpqbv2p9s73b1e1u0-a.oregon-postgres.render.com',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bolao_virtual_db',
+        'USER': 'admin',
+        'PASSWORD': 'ZGUMLnWdRnoUy7JishE5EjYOmREE2dGv',
+        'HOST': 'dpg-csdtpqbv2p9s73b1e1u0-a.oregon-postgres.render.com',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation postgresql://admin:ZGUMLnWdRnoUy7JishE5EjYOmREE2dGv@ dpg-csdtpqbv2p9s73b1e1u0-a/bolao_virtual_db
