@@ -60,8 +60,7 @@ class RodadaOriginal(models.Model):
     finalizado = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        if self.placar_casa == 9999 and self.placar_visitante == 9999:
-            self.vencedor = 'andamento'
+
         if self.placar_casa > self.placar_visitante:
             self.vencedor = self.time_casa
         elif self.placar_casa < self.placar_visitante:
@@ -69,6 +68,9 @@ class RodadaOriginal(models.Model):
         else:
             self.vencedor = 'empate'
 
+        if self.placar_casa == 9999 and self.placar_visitante == 9999:
+            self.vencedor = 'andamento'
+            
         super().save(*args, **kwargs)
 
 
