@@ -225,6 +225,7 @@ a:hover {
 }
 .tabela {
   background-color: #d1e7dd;
+  width: 100%;
   overflow: auto;
 }
 
@@ -269,8 +270,6 @@ tr:hover {
   display: flex;
   align-items: center;
 }
-
-
 
 /* ========================== fim da Classificação ====================== */
 
@@ -421,11 +420,9 @@ form {
 
 /* ========================== fim da Página Regras ====================== */
 
-
 .configuracoes {
   margin: 130px auto auto auto;
   padding: 0 2%;
-
 }
 
 /* ========================== fim da Página Configurações ====================== */
@@ -517,6 +514,34 @@ footer a {
     width: 100%;
     overflow: scroll;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  td {
+    padding: 0 20px;
+  }
+
+  .escudo {
+    width: 40px;
+    height: 40px;
+    margin-right: 7px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  th,
+  td {
+
+    font-size: 14px !important;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
   }
 
   .rodadas {
