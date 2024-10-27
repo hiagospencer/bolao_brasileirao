@@ -118,6 +118,59 @@ def calcular_pontuacao(user):
     print('tabela pontuação não encontrada')
 
 
+def calcular_pontuacao_usuario():
+
+  # rodadas = Palpite.objects.filter(finalizado=False, usuario=usuario)
+  # pontuacao_usuario = Classificacao.objects.get(usuario__usuario=user)
+  todos_usuarios = User.objects.all()
+
+  try:
+    for usuario in todos_usuarios:
+      rodadas = Palpite.objects.filter(finalizado=False, usuario=usuario)
+      pontuacao_usuario = Classificacao.objects.get(usuario__usuario=usuario)
+      for rodada in rodadas:
+        try:
+          resultado_original = RodadaOriginal.objects.get(rodada_atual=rodada.rodada_atual, time_casa=rodada.time_casa,time_visitante=rodada.time_visitante)
+
+
+          # Verifica se os placares coincidem
+          if (rodada.vencedor == resultado_original.vencedor):
+            pontuacao_usuario.pontos += 2
+            pontuacao_usuario.vitorias += 1
+            rodada.finalizado = True
+            rodada.save()
+            pontuacao_usuario.save()
+
+          # verifica os placares exatos
+          if (rodada.placar_casa == resultado_original.placar_casa and
+              rodada.placar_visitante == resultado_original.placar_visitante):
+            pontuacao_usuario.pontos += 3
+            pontuacao_usuario.placar_exato += 1
+            rodada.finalizado = True
+            rodada.save()
+            pontuacao_usuario.save()
+
+          else:
+            print("Resultados não exatos")  # Atribui 0 se os resultados não forem iguais
+            rodada.finalizado = True
+
+          # Verificando quais os jogos que não foram realizados
+          if resultado_original.placar_casa == 9999 and resultado_original.placar_visitante == 9999:
+            rodada.finalizado = False
+            rodada.save()
+            print(f'Jogo para ser realizado: {rodada.time_casa} x {rodada.time_visitante}')
+
+          rodada.save()
+          pontuacao_usuario.save()
+        except :
+          continue
+  except:
+    print('tabela pontuação não encontrada')
+
+
+
+
+
 def resetar_pontuacao_usuarios():
   usuarios = Classificacao.objects.all()
   palpites = Palpite.objects.all()

@@ -17,8 +17,8 @@ def homepage(request):
         user = request.user
         usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
-        thread = threading.Thread(target=calcular_pontuacao(user))
-        thread.start()
+        # thread = threading.Thread(target=calcular_pontuacao(user))
+        # thread.start()
 
 
         context = {'usuarios':usuarios}
@@ -132,6 +132,8 @@ def regras(request):
 @user_passes_test(lambda u: u.is_superuser)
 def configuracoes(request):
     user = request.user
+
+
     if request.method == 'POST':
         rodada_inicial = request.POST.get('rodada_inicial')
         rodada_final = request.POST.get('rodada_final')
@@ -142,11 +144,15 @@ def configuracoes(request):
         bloquear_partidas = request.POST.get('bloquear_partidas')
         desbloquear_partidas = request.POST.get('desbloquear_partidas')
         zerar_palpites = request.POST.get('zerar_palpites')
+        atualizar_classificacao = request.POST.get('atualizar_classificacao')
 
         if zerar_palpites:
             thread = threading.Thread(target=zerar_palpites_usuarios(zerar_palpites))
             thread.start()
 
+        if atualizar_classificacao:
+            thread = threading.Thread(target=calcular_pontuacao_usuario())
+            thread.start()
 
         if rodada_original:
             thread = threading.Thread(target=salvar_rodada_original(rodada_original))

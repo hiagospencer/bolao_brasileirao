@@ -56,7 +56,7 @@
                 {% for usuario in usuarios %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td class="usuario">
+                    <td class="usuario" >
                         <img src="{{ usuario.usuario.imagem.url }}" alt="{{ usuario.usuario.nome }}" class="escudo">
                         {{ usuario.usuario.nome}}
                     </td>
