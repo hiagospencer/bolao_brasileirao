@@ -18,7 +18,7 @@ def homepage(request):
         usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
         calcular_pontuacao(user)
-       
+
         context = {'usuarios':usuarios}
         return render(request, 'index.html',context)
     else:
@@ -139,7 +139,10 @@ def configuracoes(request):
         resetar_pontuacao = request.POST.get('resetar_pontuacao')
         bloquear_partidas = request.POST.get('bloquear_partidas')
         desbloquear_partidas = request.POST.get('desbloquear_partidas')
+        zerar_palpites = request.POST.get('zerar_palpites')
 
+        if zerar_palpites:
+            zerar_palpites(31)
 
         if rodada_original:
             thread = threading.Thread(target=salvar_rodada_original(rodada_original))
