@@ -191,7 +191,8 @@ def setar_rodadaAtual_rodadaFinal(rodada_atual, rodada_final):
     usuario.save()
 
 
-def zerar_palpites(rodada):
+def zerar_palpites_usuarios(rodada):
+
   palpites = Palpite.objects.filter(rodada_atual=rodada)
 
   for palpite in palpites:

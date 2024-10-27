@@ -142,7 +142,9 @@ def configuracoes(request):
         zerar_palpites = request.POST.get('zerar_palpites')
 
         if zerar_palpites:
-            zerar_palpites(31)
+            thread = threading.Thread(target=zerar_palpites_usuarios(zerar_palpites))
+            thread.start()
+
 
         if rodada_original:
             thread = threading.Thread(target=salvar_rodada_original(rodada_original))
