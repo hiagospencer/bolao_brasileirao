@@ -14,6 +14,20 @@ html {
   color: rgb(87, 87, 13) !important;
 }
 
+.sucesso {
+  border: 5px solid #1cf636;
+  box-shadow: 10px 7px 10px -3px rgba(54, 222, 29, 0.75);
+  -webkit-box-shadow: 10px 7px 10px -3px rgba(54, 222, 29, 0.75);
+  -moz-box-shadow: 10px 7px 10px -3px rgba(54, 222, 29, 0.75);
+}
+
+.erro {
+  border: 5px solid #ff2b18;
+  box-shadow: 10px 7px 10px -3px rgba(240, 68, 68, 0.75);
+  -webkit-box-shadow: 10px 7px 10px -3px rgba(240, 68, 68, 0.75);
+  -moz-box-shadow: 10px 7px 10px -3px rgba(240, 68, 68, 0.75);
+}
+
 header {
   z-index: 999 !important;
 }
@@ -522,7 +536,7 @@ footer a {
     margin-right: 7px;
   }
 
-  .usuario{
+  .usuario {
     padding: 13px 20px !important;
   }
 
@@ -534,7 +548,6 @@ footer a {
   }
 
   td {
-
     font-size: 14px !important;
   }
 

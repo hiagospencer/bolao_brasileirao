@@ -5,11 +5,12 @@
     <hr>
 </div>
 
+
 <section class="rodadas">
     <form action="{% url 'palpites' %}" method="POST">
         {% csrf_token %}
         {% for jogo in posts %}
-        <div class="rodada">
+        <div class="rodada {{ jogo.tipo_class}}">
             <div class="time_casa">
                 <img src="{{ jogo.imagem_casa }}" alt="{{ jogo.time_casa }}">
                 <span>{{ jogo.time_casa }}</span>

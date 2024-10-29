@@ -15,7 +15,7 @@ class ClassificacaoAdmin(admin.ModelAdmin):
 
 class PalpiteAdmin(admin.ModelAdmin):
     model = Palpite
-    list_display = ["usuario","rodada_atual","time_casa", "placar_casa", "placar_visitante",  "time_visitante", "vencedor", "finalizado"]
+    list_display = ["usuario","rodada_atual","time_casa", "placar_casa", "placar_visitante",  "time_visitante", "vencedor", "finalizado", "tipo_class"]
     list_filter = ["usuario", "rodada_atual"]
     list_per_page = 10
     search_fields = ("usuario", "rodada_atual")

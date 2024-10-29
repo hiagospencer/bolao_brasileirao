@@ -35,6 +35,8 @@ class Palpite(models.Model):
     imagem_fora = models.ImageField(upload_to='emblemas_times')
     vencedor = models.CharField(max_length=50)
     finalizado = models.BooleanField(default=False)
+    tipo_class = models.CharField(max_length=50, default='none')
+
 
     def save(self, *args, **kwargs):
         if self.placar_casa > self.placar_visitante:
@@ -70,7 +72,7 @@ class RodadaOriginal(models.Model):
 
         if self.placar_casa == 9999 and self.placar_visitante == 9999:
             self.vencedor = 'andamento'
-            
+
         super().save(*args, **kwargs)
 
 
@@ -97,7 +99,7 @@ class Rodada(models.Model):
 class Verificacao(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     verificado = models.BooleanField(default=False)
-    partida_atual = models.IntegerField(default=31)
+    partida_atual = models.IntegerField(default=32)
     partida_final = models.IntegerField(default=39)
 
     def __str__(self):

@@ -137,9 +137,13 @@ def calcular_pontuacao_usuario():
           if (rodada.vencedor == resultado_original.vencedor):
             pontuacao_usuario.pontos += 2
             pontuacao_usuario.vitorias += 1
+            rodada.tipo_class = "sucesso"
             rodada.finalizado = True
-            rodada.save()
             pontuacao_usuario.save()
+
+          else:
+            rodada.tipo_class = "erro"
+            rodada.finalizado = True
 
           # verifica os placares exatos
           if (rodada.placar_casa == resultado_original.placar_casa and
@@ -147,7 +151,6 @@ def calcular_pontuacao_usuario():
             pontuacao_usuario.pontos += 3
             pontuacao_usuario.placar_exato += 1
             rodada.finalizado = True
-            rodada.save()
             pontuacao_usuario.save()
 
           else:
@@ -174,6 +177,7 @@ def calcular_pontuacao_usuario():
 def resetar_pontuacao_usuarios():
   usuarios = Classificacao.objects.all()
   palpites = Palpite.objects.all()
+  jogadores = Usuario.objects.all()
 
   for usuario in usuarios:
     usuario.pontos = 0
@@ -184,6 +188,10 @@ def resetar_pontuacao_usuarios():
   for palpite in palpites:
     palpite.finalizado = False
     palpite.save()
+
+  for jogador in jogadores:
+    jogador.pagamento = False
+    jogador.save()
 
 
 def salvar_rodada_original(rodada_original):
