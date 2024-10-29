@@ -21,9 +21,14 @@
                 <span class="horario_rodada">{{ jogo.rodada_atual }}ª Rodada</span>
                 <input type="hidden" name="rodada_atual" value="{{ jogo.rodada_atual }}" />
                 <div class="resultado_jogo">
-                    <input type="number" name="resultado_casa" id="placar" placeholder="0" value="0" />
+                    <input type="number" name="resultado_casa" placeholder="0" id="placar" value="0"
+                        onfocus="if(this.value == '0') { this.value = ''; }"
+                        onblur="if(this.value === '') { this.value = 0; }" />
+
                     <span>X</span>
-                    <input type="number" name="resultado_visitante" placeholder="0" value="0" id="placar" />
+                    <input type="number" name="resultado_visitante" placeholder="0" id="placar" value="0"
+                        onfocus="if(this.value == '0') { this.value = ''; }"
+                        onblur="if(this.value === '') { this.value = 0; }" />
                 </div>
             </div>
 
@@ -37,15 +42,15 @@
         {% endfor %}
 
         {% if user.is_authenticated %}
-            {% if not verificacao_partida %}
-            <div class="salvar">
-                <button type="submit">Salvar Palpites</button>
-            </div>
-            {% else %}
-            <div class="alert alert-warning mt-2" role="alert">
-                <span style="cursor: not-allowed;">Rodadas Bloqueadas <i class="fa-solid fa-lock"></i></span>
-            </div>
-            {% endif %}
+        {% if not verificacao_partida %}
+        <div class="salvar">
+            <button type="submit">Salvar Palpites</button>
+        </div>
+        {% else %}
+        <div class="alert alert-warning mt-2" role="alert">
+            <span style="cursor: not-allowed;">Rodadas Bloqueadas <i class="fa-solid fa-lock"></i></span>
+        </div>
+        {% endif %}
 
         {% else %}
         <div class="btn btn-info">
@@ -54,4 +59,5 @@
         {% endif %}
     </form>
 </section>
+
 {% endblock %}

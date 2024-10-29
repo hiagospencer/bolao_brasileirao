@@ -54,16 +54,21 @@ def palpites(request):
         for rodada in rodadas:
             time_casa.append(rodada.time_casa)
             time_visitante.append(rodada.time_visitante)
+            img_casa.append(rodada.imagem_casa)
+            img_visitante.append(rodada.imagem_fora)
 
         if request.method == "POST":
-            data = get_api_data(verificacao_partida.partida_atual)
+            # data = get_api_data(verificacao_partida.partida_atual)
             dados = request.POST
             resultados_form = dict(dados)
 
-            #salvando os emblemas dos times no banco de dados
-            for jogo in data["matches"]:
-                img_casa.append(jogo['homeTeam']['crest'])
-                img_visitante.append(jogo['awayTeam']['crest'])
+
+            # #salvando os emblemas dos times no banco de dados
+            # for jogo in data["matches"]:
+            #     img_casa.append(jogo['homeTeam']['crest'])
+            #     img_visitante.append(jogo['awayTeam']['crest'])
+
+
 
             #salvando os resultados dos times e rodadas no banco de dados
             if resultados_form["resultado_casa"] and resultados_form["resultado_visitante"]:
@@ -87,7 +92,12 @@ def palpites(request):
                     "rodada_atual": rodada_dict
             }
 
+            print(resultado_tabela['time_casa'])
+            print(resultado_tabela['img_casa'])
+
             df_tabela = pd.DataFrame(resultado_tabela)
+
+
                 # Iterar sobre o DataFrame e criar instâncias do modelo Rodada1
                 #criando o banco de dados
             for _, row in df_tabela.iterrows():
