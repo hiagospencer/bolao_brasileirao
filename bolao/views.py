@@ -228,7 +228,7 @@ def perfil(request):
             img = 'imagens/perfil-null.png'
 
         for usuario in usuarios:
-            usuario.imagem = img
+            usuario.avatar = img
             usuario.save()
 
     context = {"usuarios":usuarios}
