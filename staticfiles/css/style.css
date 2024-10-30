@@ -14,6 +14,20 @@ html {
   color: rgb(87, 87, 13) !important;
 }
 
+.sucesso {
+  border: 5px solid #1cf636;
+  box-shadow: 10px 7px 10px -3px rgba(54, 222, 29, 0.75);
+  -webkit-box-shadow: 10px 7px 10px -3px rgba(54, 222, 29, 0.75);
+  -moz-box-shadow: 10px 7px 10px -3px rgba(54, 222, 29, 0.75);
+}
+
+.erro {
+  border: 5px solid #ff2b18;
+  box-shadow: 10px 7px 10px -3px rgba(240, 68, 68, 0.75);
+  -webkit-box-shadow: 10px 7px 10px -3px rgba(240, 68, 68, 0.75);
+  -moz-box-shadow: 10px 7px 10px -3px rgba(240, 68, 68, 0.75);
+}
+
 header {
   z-index: 999 !important;
 }
@@ -186,7 +200,7 @@ a:hover {
 .inscricao {
   margin: 0 auto;
 }
-.inscricao button {
+.inscricao > a {
   margin-top: 10px;
   display: flex;
   align-items: center;
@@ -207,7 +221,7 @@ a:hover {
   cursor: pointer;
 }
 
-.inscricao button:hover {
+.inscricao > a:hover {
   box-shadow: 0 0 rgba(0, 0, 0, 0.4);
   border-bottom-width: 2px;
   transform: translateY(2px);
@@ -225,6 +239,7 @@ a:hover {
 }
 .tabela {
   background-color: #d1e7dd;
+  width: 100%;
   overflow: auto;
 }
 
@@ -240,7 +255,7 @@ td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
-  font-size: 16px;
+  font-size: 13px !important;
   font-family: monospace;
   font-weight: bold;
 }
@@ -270,8 +285,6 @@ tr:hover {
   align-items: center;
 }
 
-
-
 /* ========================== fim da Classificação ====================== */
 
 .title__rodada {
@@ -283,9 +296,9 @@ tr:hover {
 }
 
 .rodadas {
-  max-width: 900px;
+  max-width: 950px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin: 40px auto 250px auto;
 }
 
@@ -301,8 +314,9 @@ form {
 .rodada {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: row;
-  width: 40%;
+  width: 45%;
   background-color: #fff;
   padding: 25px 0;
   border-radius: 7px;
@@ -312,6 +326,7 @@ form {
 .time_visitante {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 3px;
 }
 
@@ -419,11 +434,9 @@ form {
 
 /* ========================== fim da Página Regras ====================== */
 
-
 .configuracoes {
   margin: 130px auto auto auto;
   padding: 0 2%;
-
 }
 
 /* ========================== fim da Página Configurações ====================== */
@@ -506,6 +519,7 @@ footer a {
   .tabela {
     background-color: #d1e7dd;
     width: 98%;
+    font-size: 15px;
     overflow: auto;
   }
 
@@ -514,6 +528,33 @@ footer a {
     width: 100%;
     overflow: scroll;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .escudo {
+    width: 40px;
+    height: 40px;
+    margin-right: 7px;
+  }
+
+  .usuario {
+    padding: 13px 20px !important;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  td {
+    font-size: 14px !important;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-size: 14px !important;
   }
 
   .rodadas {
