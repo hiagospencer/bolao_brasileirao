@@ -63,13 +63,6 @@ def palpites(request):
             resultados_form = dict(dados)
 
 
-            # #salvando os emblemas dos times no banco de dados
-            # for jogo in data["matches"]:
-            #     img_casa.append(jogo['homeTeam']['crest'])
-            #     img_visitante.append(jogo['awayTeam']['crest'])
-
-
-
             #salvando os resultados dos times e rodadas no banco de dados
             if resultados_form["resultado_casa"] and resultados_form["resultado_visitante"]:
                 for resultado_visitante in resultados_form["resultado_visitante"]:
