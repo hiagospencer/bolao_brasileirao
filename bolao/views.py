@@ -85,12 +85,8 @@ def palpites(request):
                     "rodada_atual": rodada_dict
             }
 
-            print(resultado_tabela['time_casa'])
-            print(resultado_tabela['img_casa'])
 
             df_tabela = pd.DataFrame(resultado_tabela)
-
-
                 # Iterar sobre o DataFrame e criar instâncias do modelo Rodada1
                 #criando o banco de dados
             for _, row in df_tabela.iterrows():
@@ -105,8 +101,10 @@ def palpites(request):
                     rodada_atual=row['rodada_atual'],
                     )
 
+            messages.error(request, f'{verificacao_partida.partida_atual}ª rodada salva com sucesso')
             verificacao_partida.partida_atual += 1
             verificacao_partida.save()
+
             return redirect('palpites')
 
         context = {"rodadas":rodadas, 'verificacao_partida':verificacao_partida.verificado}
