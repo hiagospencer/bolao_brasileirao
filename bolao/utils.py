@@ -160,6 +160,7 @@ def calcular_pontuacao_usuario():
           # Verificando quais os jogos que não foram realizados
           if resultado_original.placar_casa == 9999 and resultado_original.placar_visitante == 9999:
             rodada.finalizado = False
+            rodada.tipo_class = "none"
             rodada.save()
             print(f'Jogo para ser realizado: {rodada.time_casa} x {rodada.time_visitante}')
 

@@ -144,21 +144,21 @@ MEDIA_URL = "imagens/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
 
 
-EMAIL_HOST = 'smtp.office365.com'  # Servidor SMTP do Outlook/Office 365
-EMAIL_PORT = 587  # Porta para TLS
-EMAIL_USE_TLS = True  # Ativa TLS para envio seguro
-EMAIL_HOST_USER = 'hiaguinhospencer@outlook.com'  # Seu endereço de email do Outlook
-EMAIL_HOST_PASSWORD = 'hjkguwfmyzzlapyy'  # Senha da conta do Outlook
-DEFAULT_FROM_EMAIL = 'hiaguinhospencer@outlook.com'  # Remetente padrão
+# EMAIL_HOST = 'smtp.office365.com'  # Servidor SMTP do Outlook/Office 365
+# EMAIL_PORT = 587  # Porta para TLS
+# EMAIL_USE_TLS = True  # Ativa TLS para envio seguro
+# EMAIL_HOST_USER = 'hiaguinhospencer@outlook.com'  # Seu endereço de email do Outlook
+# EMAIL_HOST_PASSWORD = 'hjkguwfmyzzlapyy'  # Senha da conta do Outlook
+# DEFAULT_FROM_EMAIL = 'hiaguinhospencer@outlook.com'  # Remetente padrão
 
 # codigo autenticacao 2 etapas microsoft  Q65LM-3EWVH-UCCEF-8DY9C-6ABE8
 
-# DEFAULT_FROM_EMAIL = "hiaguinhospencer@gmail.com"
-# EMAIL_HOST_USER = "hiaguinhospencer@gmail.com"
-# EMAIL_HOST_PASSWORD = "lnai yjwo qtdv wuzc"
-# EMAIL_USE_TSL = True
-# EMAIL_PORT = 587
-# EMAIL_HOST = "smtp.gmail.com"
+DEFAULT_FROM_EMAIL = "hiaguinhospencer@gmail.com"
+EMAIL_HOST_USER = "hiaguinhospencer@gmail.com"
+EMAIL_HOST_PASSWORD = "lnai yjwo qtdv wuzc"
+EMAIL_USE_TSL = True
+EMAIL_PORT = 587
+EMAIL_HOST = "smtp.gmail.com"
