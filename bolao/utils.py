@@ -87,9 +87,13 @@ def calcular_pontuacao(user):
         if (rodada.vencedor == resultado_original.vencedor):
           pontuacao_usuario.pontos += 2
           pontuacao_usuario.vitorias += 1
+          rodada.tipo_class = "sucesso"
           rodada.finalizado = True
-          rodada.save()
           pontuacao_usuario.save()
+        else:
+          rodada.tipo_class = "erro"
+          rodada.finalizado = True
+
 
         # verifica os placares exatos
         if (rodada.placar_casa == resultado_original.placar_casa and
@@ -97,7 +101,6 @@ def calcular_pontuacao(user):
           pontuacao_usuario.pontos += 3
           pontuacao_usuario.placar_exato += 1
           rodada.finalizado = True
-          rodada.save()
           pontuacao_usuario.save()
 
         else:
@@ -107,6 +110,7 @@ def calcular_pontuacao(user):
         # Verificando quais os jogos que não foram realizados
         if resultado_original.placar_casa == 9999 and resultado_original.placar_visitante == 9999:
           rodada.finalizado = False
+          rodada.tipo_class = "none"
           rodada.save()
           print(f'Jogo para ser realizado: {rodada.time_casa} x {rodada.time_visitante}')
 

@@ -17,8 +17,8 @@ def homepage(request):
         user = request.user
         usuarios = Classificacao.objects.filter(usuario__pagamento=True).order_by('-pontos', '-placar_exato', '-vitorias', '-empates')
 
-        # thread = threading.Thread(target=calcular_pontuacao(user))
-        # thread.start()
+        thread = threading.Thread(target=calcular_pontuacao(user))
+        thread.start()
 
 
         context = {'usuarios':usuarios}
@@ -116,7 +116,7 @@ def palpites(request):
 def meus_palpites(request):
     if request.user.is_authenticated:
         user = request.user
-        rodadas = Palpite.objects.filter(usuario=user)
+        rodadas = Palpite.objects.filter(usuario=user).order_by('rodada_atual')
         #pagination
         paginator = Paginator(rodadas, 10)
         page_obj = request.GET.get('page')
