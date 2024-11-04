@@ -145,14 +145,14 @@ def configuracoes(request):
         bloquear_partidas = request.POST.get('bloquear_partidas')
         desbloquear_partidas = request.POST.get('desbloquear_partidas')
         zerar_palpites = request.POST.get('zerar_palpites')
-        atualizar_classificacao = request.POST.get('atualizar_classificacao')
+        rodada_atualizada = request.POST.get('rodada_atualizada')
 
         if zerar_palpites:
             thread = threading.Thread(target=zerar_palpites_usuarios(zerar_palpites))
             thread.start()
 
-        if atualizar_classificacao:
-            thread = threading.Thread(target=calcular_pontuacao_usuario())
+        if rodada_atualizada:
+            thread = threading.Thread(target=calcular_pontuacao_usuario(rodada_atualizada))
             thread.start()
 
         if rodada_original:

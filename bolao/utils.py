@@ -122,15 +122,13 @@ def calcular_pontuacao(user):
     print('tabela pontuação não encontrada')
 
 
-def calcular_pontuacao_usuario():
+def calcular_pontuacao_usuario(rodada_atualizada):
 
-  # rodadas = Palpite.objects.filter(finalizado=False, usuario=usuario)
-  # pontuacao_usuario = Classificacao.objects.get(usuario__usuario=user)
   todos_usuarios = User.objects.all()
 
   try:
     for usuario in todos_usuarios:
-      rodadas = Palpite.objects.filter(finalizado=False, usuario=usuario)
+      rodadas = Palpite.objects.filter(finalizado=False, usuario=usuario, rodada_atual=rodada_atualizada)
       pontuacao_usuario = Classificacao.objects.get(usuario__usuario=usuario)
       for rodada in rodadas:
         try:
