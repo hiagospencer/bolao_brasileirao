@@ -144,7 +144,7 @@ MEDIA_URL = "imagens/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # EMAIL_HOST = 'smtp.office365.com'  # Servidor SMTP do Outlook/Office 365
