@@ -40,7 +40,7 @@ def palpites(request):
         img_visitante = []
         verificacao_partida, criado = Verificacao.objects.get_or_create(user=user)
         rodadas = Rodada.objects.filter(rodada_atual=verificacao_partida.partida_atual )
-        # calcular_pontuacao(user)
+        # calcular_pontuacao(user) 
 
         if verificacao_partida.partida_atual == verificacao_partida.partida_final:
             verificacao_partida.verificado = True
